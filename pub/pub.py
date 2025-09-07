@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 import logging
 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
 
-load_dotenv('../../.env')
+load_dotenv('.env')
 
 
 class Producer:
@@ -17,8 +17,8 @@ class Producer:
             self.host = os.getenv("HOST-FOR-PROCESSING-SERVICE")
             self.producer = KafkaProducer(bootstrap_servers=self.host,
                                     value_serializer=lambda x:
-                                    json.dumps(x).encode('utf-8')
-                                    )
+                                    json.dumps(x).encode('utf-8'),
+                                          )
 
             logging.info("Reading the environment variables")
         except FileNotFoundError as e:
@@ -29,7 +29,6 @@ class Producer:
             self.producer.send(topic, message)
             logging.info(f"the massage: {message} is send to topic: {topic}")
             print("sent:",message, "to", topic)
-            self.close_conn()
         except RecordListTooLargeError as e:
             logging.error(f"error: {e}")
             raise f"error: {e}"
@@ -49,6 +48,12 @@ class Producer:
             logging.error(f"error: {e}")
             raise f"error: {e}"
 
+    def conn(self):
+        if not self.producer:
+            self.producer = KafkaProducer(bootstrap_servers=self.host,
+                                    value_serializer=lambda x:
+                                    json.dumps(x).encode('utf-8'),
+                                          )
 a = Producer()
 topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
 

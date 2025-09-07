@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
 
-load_dotenv('../../.env')
+load_dotenv('.env')
 
 
 class DAL:
@@ -21,6 +21,7 @@ class DAL:
 
         :return: A list containing all files with the path
         """
+        print(self.folder_path)
         if not os.path.isdir(self.folder_path):
             logging.error(f"Folder {self.folder_path} does not exist.")
             raise f"Folder {self.folder_path} does not exist."
