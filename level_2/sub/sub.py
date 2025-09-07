@@ -3,12 +3,14 @@ from kafka import KafkaConsumer
 from dotenv import load_dotenv
 import logging
 import json
-from processor.Processor import Processor
+from level_2.processor.Processor import Processor
+from level_2.elstricsearch.es import Es
 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
-load_dotenv('../.env')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
+load_dotenv('../../.env')
 
+es = Es()
 processor = Processor()
 
 topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
@@ -26,5 +28,8 @@ consumer = KafkaConsumer(
 print(f"{topic} מקשיב להודעות...")
 
 for message in consumer:
+
+    es.create_index()
     print("התקבלה הודעה:", message.value)
-    print(processor.create_id(message.value))
+    es.added_docs(processor.create_id(message.value))
+

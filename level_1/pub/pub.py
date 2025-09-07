@@ -17,8 +17,8 @@ class Producer:
             self.host = os.getenv("HOST-FOR-PROCESSING-SERVICE")
             self.producer = KafkaProducer(bootstrap_servers=self.host,
                                     value_serializer=lambda x:
-                                    json.dumps(x).encode('utf-8'),
-                                          )
+                                    json.dumps(x).encode('utf-8')
+                                    )
 
             logging.info("Reading the environment variables")
         except FileNotFoundError as e:

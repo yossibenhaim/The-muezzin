@@ -3,11 +3,14 @@ import logging
 import os
 from datetime import datetime
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
 
 
 
 class Utils:
+
+
+
 
     @staticmethod
     def read_wav_metadata_basic(file_path):
@@ -16,19 +19,17 @@ class Utils:
             with wave.open(file_path, 'rb') as wf:
                 logging.info(f"Trying to generate metadata for {file_path}")
                 metadata = {
-                    "file path": file_path,
                     "metadata": {
-                        "Number of channels": wf.getnchannels(),
+                        "file path": file_path,
                         "Creation date" : Utils.get_wav_creation_date(file_path),
                         "Sample width (bytes)": wf.getsampwidth(),
-                        "Frame rate (Hz)": wf.getframerate(),
                         "Number of frames": wf.getnframes(),
-                        "Compression type": wf.getcomptype(),
-                        "Compression name": wf.getcompname(),
                         "Duration (seconds)": wf.getnframes() / wf.getframerate()
                     }
                 }
             logging.info("The information was created")
+            for i in metadata["metadata"]:
+                print(type(i))
             return metadata
         except wave.Error as e:
             logging.error(f"Error reading WAV file: {e}")

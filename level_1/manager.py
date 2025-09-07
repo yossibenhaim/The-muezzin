@@ -1,11 +1,11 @@
 import logging
-from dal.DAL import DAL
-from utils import Utils
-from pub.pub import Producer
+from level_1.dal.DAL_files_from_path_ import DAL
+from level_1.utils import Utils
+from level_1.pub.pub import Producer
 import os
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+load_dotenv('../.env')
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
 

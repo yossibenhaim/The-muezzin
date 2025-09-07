@@ -21,7 +21,6 @@ class DAL:
 
         :return: A list containing all files with the path
         """
-        print(self.folder_path)
         if not os.path.isdir(self.folder_path):
             logging.error(f"Folder {self.folder_path} does not exist.")
             raise f"Folder {self.folder_path} does not exist."
@@ -30,7 +29,6 @@ class DAL:
         found_files = []
         for root, dirs, files in os.walk(self.folder_path):
             for file in files:
-                print(type(file))
                 found_files.append(os.path.join(root, file))
         return found_files
 
