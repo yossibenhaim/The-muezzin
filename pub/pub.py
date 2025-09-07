@@ -54,7 +54,3 @@ class Producer:
                                     value_serializer=lambda x:
                                     json.dumps(x).encode('utf-8'),
                                           )
-a = Producer()
-topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
-
-a.send_message(topic,{"ckjckc" : "bb"})

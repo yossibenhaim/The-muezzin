@@ -1,6 +1,6 @@
 import logging
 from dal.DAL import DAL
-from processor.Processor import Processor
+from utils import Utils
 from pub.pub import Producer
 import os
 from dotenv import load_dotenv
@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 class Manager:
     def __init__(self):
         self.DAL = DAL()
-        self.processor = Processor()
+        self.utils = Utils()
         self.producer = Producer()
         self.topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
 
@@ -24,7 +24,7 @@ class Manager:
             self.producer.conn()
         for file in files:
             print(file)
-            metadata = self.processor.read_wav_metadata_basic(file)
+            metadata = self.utils.read_wav_metadata_basic(file)
             self.producer.send_message(self.topic, metadata)
         self.producer.close_conn()
 a = Manager()
