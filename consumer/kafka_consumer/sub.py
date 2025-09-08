@@ -1,20 +1,19 @@
 import os
 from kafka import KafkaConsumer
 from dotenv import load_dotenv
-import logging
 import json
-from level_2.processor.Processor import Processor
-from level_2.elstricsearch.es import Es
+from consumer.manager_consumer import Manager
+from consumer.logger import Logger
 
+Logger()
+logger = Logger.get_logger()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
 load_dotenv('../../.env')
-
-es = Es()
-processor = Processor()
 
 topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
 host = os.getenv('HOST-FOR-PROCESSING-SERVICE')
+
+manager_consumer = Manager()
 
 consumer = KafkaConsumer(
     topic,
@@ -28,8 +27,5 @@ consumer = KafkaConsumer(
 print(f"{topic} מקשיב להודעות...")
 
 for message in consumer:
-
-    es.create_index()
-    print("התקבלה הודעה:", message.value)
-    es.added_docs(processor.create_id(message.value))
-
+    print("התקבלה הודעה:")
+    manager_consumer.write_to_elastic_and_mongodb(message.value)
