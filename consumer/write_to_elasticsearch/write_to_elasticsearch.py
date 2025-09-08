@@ -1,9 +1,9 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, exceptions
 from dotenv import load_dotenv
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
 
 load_dotenv('../../.env')
 
@@ -42,8 +42,8 @@ class Write_to_elasticsearch:
 
     def added_docs(self, doc : dict):
         try:
-            self.es.index(index="users_extended", id=doc['id'], document=doc['metadata'])
+            self.es.index(index="users_extended", id=doc['_id'], document=doc['metadata'])
             logging.info(f"the doc: {doc} is open to {self.index_name}")
-        except:
-            logging.error("error:")
-            raise "error:"
+        except exceptions as e:
+            logging.error(f"error:{e}")
+            raise e

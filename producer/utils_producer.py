@@ -3,14 +3,12 @@ import logging
 import os
 from datetime import datetime
 
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
 
 
 
 class Utils:
-
-
-
 
     @staticmethod
     def read_wav_metadata_basic(file_path):
@@ -19,8 +17,9 @@ class Utils:
             with wave.open(file_path, 'rb') as wf:
                 logging.info(f"Trying to generate metadata for {file_path}")
                 metadata = {
+                    "file path": file_path,
                     "metadata": {
-                        "file path": file_path,
+                        "name file" : os.path.basename(file_path),
                         "Creation date" : Utils.get_wav_creation_date(file_path),
                         "Sample width (bytes)": wf.getsampwidth(),
                         "Number of frames": wf.getnframes(),

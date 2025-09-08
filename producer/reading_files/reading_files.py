@@ -2,12 +2,12 @@ import os
 from dotenv import load_dotenv
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
 
 load_dotenv('.env')
 
 
-class DAL:
+class Reading_files:
 
     def __init__(self):
         """
@@ -31,6 +31,3 @@ class DAL:
             for file in files:
                 found_files.append(os.path.join(root, file))
         return found_files
-
-a = DAL()
-print(a.get_all_files())
