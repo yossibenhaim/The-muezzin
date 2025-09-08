@@ -1,11 +1,13 @@
 import os
 from kafka import KafkaConsumer
 from dotenv import load_dotenv
-import logging
 import json
 from consumer.manager_consumer import Manager
+from consumer.logger import Logger
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../../logs/logs.log")
+Logger()
+logger = Logger.get_logger()
+
 load_dotenv('../../.env')
 
 topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
@@ -25,5 +27,5 @@ consumer = KafkaConsumer(
 print(f"{topic} מקשיב להודעות...")
 
 for message in consumer:
-    print("התקבלה הודעה:", message.value)
+    print("התקבלה הודעה:")
     manager_consumer.write_to_elastic_and_mongodb(message.value)

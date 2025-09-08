@@ -1,13 +1,12 @@
 from pymongo import MongoClient, errors
 from dotenv import dotenv_values
 import os
-import logging
+from consumer.logger import Logger
 
 dotenv_values('../../.env')
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="logs/logs.log")
 
-
+logger = Logger.get_logger()
 class Write_to_mongoDB:
     def __init__(self):
         self.client = None
@@ -20,23 +19,23 @@ class Write_to_mongoDB:
         try:
             self.client = MongoClient(f"mongodb://{self.host}:{self.db_port}")
             self.client.admin.command("ping")
-            logging.info(f"Connected to {self.host}!")
+            logger.info(f"Connected to {self.host}!")
         except errors.ServerSelectionTimeoutError as err:
-            logging.error(f"Server selection timeout: {err}")
+            logger.error(f"Server selection timeout: {err}")
             raise
         except errors.ConnectionFailure as err:
-            logging.error(f"Connection failed: {err}")
+            logger.error(f"Connection failed: {err}")
             raise
         except errors.ConfigurationError as err:
-            logging.error(f"Configuration error: {err}")
+            logger.error(f"Configuration error: {err}")
             raise
         except Exception as err:
-            logging.error(f"Unexpected error: {err}")
+            logger.error(f"Unexpected error: {err}")
             raise
 
     def close_conn(self):
         self.client.close()
-        logging.info("the conn to mongodb is closed")
+        logger.info("the conn to mongodb is closed")
 
     def get_all_docs(self):
         try:
@@ -44,10 +43,10 @@ class Write_to_mongoDB:
             db = self.client[self.db_name]
             collection = db[self.db_coll]
             result = list(collection.find({}))
-            logging.info("the data is get from mongodb")
+            logger.info("the data is get from mongodb")
             return result
         except Exception as e:
-            logging.error(e)
+            logger.error(e)
             raise Exception(e)
         finally:
             self.close_conn()
@@ -58,10 +57,10 @@ class Write_to_mongoDB:
             db = self.client[self.db_name]
             collection = db[self.db_coll]
             result = list(collection.find({'_id':doc_id}))
-            logging.info(f"the doc: {doc_id} is get from mongodb")
+            logger.info(f"the doc: {doc_id} is get from mongodb")
             return result
         except Exception as e:
-            logging.error(e)
+            logger.error(e)
             raise Exception(e)
         finally:
             self.close_conn()
@@ -73,9 +72,9 @@ class Write_to_mongoDB:
             db = self.client[self.db_name]
             collection = db[self.db_coll]
             collection.insert_one(dod)
-            logging.info(f"the doc: {dod} inserted to mongodb")
+            logger.info(f"the doc: {dod} inserted to mongodb")
         except Exception as e:
-            logging.error(e)
+            logger.error(e)
             raise Exception(e)
         finally:
             self.close_conn()

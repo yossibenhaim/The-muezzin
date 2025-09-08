@@ -1,15 +1,15 @@
-import logging
 from producer.reading_files.reading_files import Reading_files
 from producer.utils_producer import Utils
 from producer.kafka_producer.kaska_producer import Producer
 import os
 from dotenv import load_dotenv
+from producer.logger import Logger
+
+
+
+logger = Logger.get_logger()
 
 load_dotenv('../.env')
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename="../logs/logs.log")
-
-
 
 class Manager:
     def __init__(self):
@@ -23,7 +23,6 @@ class Manager:
         if not self.producer.producer:
             self.producer.conn()
         for file in files:
-            print(file)
             metadata = self.utils.read_wav_metadata_basic(file)
             self.producer.send_message(self.topic, metadata)
         self.producer.close_conn()

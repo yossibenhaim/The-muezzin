@@ -22,7 +22,6 @@ class Manager:
         """
         #send to added id
         doc = self.utils.create_id(doc)
-
         doc_to_elastic = self.utils.create_doc_to_send_to_elastic(doc)
         doc_to_mongodb = self.utils.create_doc_to_send_to_mongodb(doc)
 
