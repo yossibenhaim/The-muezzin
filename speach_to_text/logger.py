@@ -8,12 +8,12 @@ dotenv_values('../.env')
 
 host_log = os.getenv('HOST-FOR-ELASTICSEARCH')
 port_log = os.getenv('PORT-FOR-ELASTICSEARCH')
-index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH-PRODUCER')
+index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH-STT')
 class Logger:
     _logger = None
 
     @classmethod
-    def get_logger(cls, name="producer-logs", es_host=f'http://es:9200', index=index_log,
+    def get_logger(cls, name="speach-to-text-logs", es_host='http://localhost:9200', index=index_log,
                    level=logging.DEBUG):
         if cls._logger:
             return cls._logger

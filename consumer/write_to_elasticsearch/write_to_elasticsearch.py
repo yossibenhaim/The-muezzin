@@ -22,7 +22,8 @@ class Write_to_elasticsearch:
                 "Creation date": { "type": "date" },
                 "Sample width (bytes)": { "type": "int" },
                 "Number of frames": { "type": "int" },
-                "Duration (seconds)": { "type": "float" }
+                "Duration (seconds)": { "type": "float" },
+                'text' : {'type' : 'text'}
             }
         }
         return mapping

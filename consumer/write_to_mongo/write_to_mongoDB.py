@@ -66,13 +66,18 @@ class Write_to_mongoDB:
             self.close_conn()
 
 
-    def insert_dod(self, dod : dict):
+    def insert_dod(self, doc : dict):
         try:
             self.connect()
             db = self.client[self.db_name]
             collection = db[self.db_coll]
-            collection.insert_one(dod)
-            logger.info(f"the doc: {dod} inserted to mongodb")
+            filter_criteria  = {'_id' : doc["_id"]}
+            result = collection.update_one(filter_criteria, {"$set": doc}, upsert=True)
+            if result.upserted_id:
+                logger.info(f"the doc: {doc["_id"]} inserted to mongodb")
+            else:
+                logger.info(f"the doc: {doc['_id']} is exists - the file is updated in mongodb")
+
         except Exception as e:
             logger.error(e)
             raise Exception(e)
