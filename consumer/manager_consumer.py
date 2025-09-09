@@ -22,16 +22,27 @@ class Manager:
         """
         #send to added id
         doc = self.utils.create_id(doc)
-        doc_to_elastic = self.utils.create_doc_to_send_to_elastic(doc)
-        doc_to_mongodb = self.utils.create_doc_to_send_to_mongodb(doc)
 
-        self.write_to_elasticsearch(doc_to_elastic)
+        #send to mongodb
+        doc_to_mongodb = self.utils.create_doc_to_send_to_mongodb(doc)
         self.write_to_mongodb(doc_to_mongodb)
 
+        #send to elastic
+        doc_to_elastic = self.utils.create_doc_to_send_to_elastic(doc)
+        self.write_to_elasticsearch(doc_to_elastic)
+
     def write_to_elasticsearch(self, doc):
+        """
+        send doc to write in elastic
+        :param doc: dict
+        """
         self.es.added_docs(doc)
 
     def write_to_mongodb(self, doc):
+        """
+        send doc to write in mongodb
+        :param doc: dict
+        """
         self.mongo.insert_dod(doc)
 
     def get_doc_by_id_from_mongodb(self, _id):
