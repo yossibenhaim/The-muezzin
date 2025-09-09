@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch, exceptions
 from dotenv import load_dotenv
 import os
-from consumer.logger import Logger
+from speach_to_text.logger import Logger
 
 logger = Logger.get_logger()
 load_dotenv('../../.env')

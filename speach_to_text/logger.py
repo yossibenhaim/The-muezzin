@@ -8,8 +8,7 @@ dotenv_values('../.env')
 
 host_log = os.getenv('HOST-FOR-ELASTICSEARCH')
 port_log = os.getenv('PORT-FOR-ELASTICSEARCH')
-host_log = f"{host_log}:{port_log}"
-index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH')
+index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH-STT')
 class Logger:
     _logger = None
 
