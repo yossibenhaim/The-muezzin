@@ -16,7 +16,7 @@ class Manager:
         self.reading_files = Reading_files()
         self.utils = Utils()
         self.producer = Producer()
-        self.topic_to_consumer = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
+        self.topic_to_consumer = os.getenv('TOPIC-FOR-CONSUMER-SERVICE')
         #topic to convert speach to text
         self.topic_to_stt = os.getenv('TOPIC-FOR-STT-SERVICE')
 

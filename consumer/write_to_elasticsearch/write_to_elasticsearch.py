@@ -23,7 +23,10 @@ class Write_to_elasticsearch:
                 "Sample width (bytes)": { "type": "int" },
                 "Number of frames": { "type": "int" },
                 "Duration (seconds)": { "type": "float" },
-                'text' : {'type' : 'text'}
+                'text' : {'type' : 'text'},
+                'bds_percent' : {'type' : 'float'},
+                'threshold' : { 'type' : 'boolean'},
+                'bds_threat_level' : {'type' : 'keyword'}
             }
         }
         return mapping

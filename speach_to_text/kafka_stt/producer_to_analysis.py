@@ -13,7 +13,7 @@ load_dotenv('.env')
 class Producer:
     def __init__(self):
         try:
-            self.host = os.getenv("HOST-FOR-CONSUMER-SERVICE")
+            self.host = os.getenv("HOST-FOR-ANALYSIS-SERVICE")
             self.producer = KafkaProducer(bootstrap_servers=self.host,
                                     value_serializer=lambda x:
                                     json.dumps(x).encode('utf-8')

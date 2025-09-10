@@ -2,18 +2,17 @@ import os
 from kafka import KafkaConsumer
 from dotenv import load_dotenv
 import json
-from consumer.manager_consumer import Manager
+from information_analysis.manager_analysis import Manager
 from consumer.logger import Logger
 
-Logger()
 logger = Logger.get_logger()
 
 load_dotenv('../../.env')
 
-topic = os.getenv('TOPIC-FOR-CONSUMER-SERVICE')
-host = os.getenv('HOST-FOR-CONSUMER-SERVICE')
+topic = os.getenv('TOPIC-FOR-ANALYSIS-SERVICE')
+host = os.getenv('HOST-FOR-ANALYSIS-SERVICE')
 
-manager_consumer = Manager()
+manager_analysis = Manager()
 
 consumer = KafkaConsumer(
     topic,
@@ -28,4 +27,4 @@ print(f"{topic} מקשיב להודעות...")
 
 for message in consumer:
     print("התקבלה הודעה:")
-    manager_consumer.write_to_elastic_and_mongodb(message.value)
+    manager_analysis.running_the_data_analysis(message.value)
