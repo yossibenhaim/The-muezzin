@@ -2,9 +2,9 @@ import logging
 from elasticsearch import Elasticsearch
 from datetime import datetime
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
-dotenv_values('../.env')
+load_dotenv('../.env')
 
 host_log = os.getenv('HOST-FOR-ELASTICSEARCH')
 port_log = os.getenv('PORT-FOR-ELASTICSEARCH')
@@ -13,7 +13,7 @@ class Logger:
     _logger = None
 
     @classmethod
-    def get_logger(cls, name="producer-logs", es_host=f'http://es:9200', index=index_log,
+    def get_logger(cls, name="producer-logs", es_host=f"http://{host_log}:{port_log}", index=index_log,
                    level=logging.DEBUG):
         if cls._logger:
             return cls._logger

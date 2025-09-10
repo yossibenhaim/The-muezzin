@@ -2,20 +2,19 @@ import logging
 from elasticsearch import Elasticsearch
 from datetime import datetime
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
-dotenv_values('../.env')
+load_dotenv('../.env')
 
-host_log = os.getenv('HOST-FOR-ELASTICSEARCH')
-port_log = os.getenv('PORT-FOR-ELASTICSEARCH')
-host_log = f"{host_log}:{port_log}"
-index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH-CONSUMER')
+host_log = os.getenv('HOST-FOR-ELASTICSEARCH',"localhost")
+port_log = os.getenv('PORT-FOR-ELASTICSEARCH',"9200")
+index_log = os.getenv('INDEX-NAME-LOGGING-ELASTICSEARCH-CONSUMER', 'muezzin-logging-consumer')
 class Logger:
     _logger = None
 
     @classmethod
-    def get_logger(cls, name="consumer-logs", es_host='http://localhost:9200', index=index_log,
-                   level=logging.DEBUG):
+    def get_logger(cls, name="consumer-logs", es_host=f"http://{host_log}:{port_log}", index=index_log,
+                   level=logging.INFO):
         if cls._logger:
             return cls._logger
         logger = logging.getLogger(name)

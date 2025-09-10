@@ -8,5 +8,6 @@ class Utils:
 
     @staticmethod
     def update_doc_to_send_to_elastic(doc):
-        doc_to_elastic = {"_id" : doc['_id'], "metadata" : doc['metadata'], 'text': doc['text']}
+        doc["metadata"]["text"] = doc["text"]
+        doc_to_elastic = {"_id" : doc['_id'], "metadata" : doc['metadata'] }
         return doc_to_elastic

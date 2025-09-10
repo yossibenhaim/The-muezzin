@@ -10,8 +10,8 @@ logger = Logger.get_logger()
 
 load_dotenv('../../.env')
 
-topic = os.getenv('TOPIC-FOR-PROCESSING-SERVICE')
-host = os.getenv('HOST-FOR-PROCESSING-SERVICE')
+topic = os.getenv('TOPIC-FOR-CONSUMER-SERVICE')
+host = os.getenv('HOST-FOR-CONSUMER-SERVICE')
 
 manager_consumer = Manager()
 
