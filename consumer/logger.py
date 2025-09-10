@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+load_dotenv('.env')
 
 host_log = os.getenv('HOST-FOR-ELASTICSEARCH',"localhost")
 port_log = os.getenv('PORT-FOR-ELASTICSEARCH',"9200")

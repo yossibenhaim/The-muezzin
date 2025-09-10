@@ -3,13 +3,9 @@ from producer.utils_producer import Utils
 from producer.kafka_producer.kafka_producer import Producer
 import os
 from dotenv import load_dotenv
-from producer.logger import Logger
 
 
-
-logger = Logger.get_logger()
-
-load_dotenv('../.env')
+load_dotenv('.env')
 
 class Manager:
     def __init__(self):
