@@ -25,7 +25,7 @@ class Write_to_elasticsearch:
                 "Duration (seconds)": { "type": "float" },
                 'text' : {'type' : 'text'},
                 'bds_percent' : {'type' : 'float'},
-                'threshold' : { 'type' : 'boolean'},
+                'is_bds' : { 'type' : 'boolean'},
                 'bds_threat_level' : {'type' : 'keyword'}
             }
         }
@@ -45,6 +45,8 @@ class Write_to_elasticsearch:
 
     def added_docs(self, doc : dict):
         try:
+            if not self.es.indices.exists(index=self.index_name):
+                self.create_index()
             self.es.index(index=self.index_name, id=doc['_id'], document=doc['metadata'])
             logger.info(f"the doc: {doc['_id']} is open to {self.index_name}")
         except exceptions.AuthorizationException as e:

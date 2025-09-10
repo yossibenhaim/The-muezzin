@@ -27,3 +27,12 @@ docker exec -it es /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-
 
 #Login password recovery
 docker exec -it es /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+
+#create docker image
+
+docker build -t analysis-image:latest .
+docker build -t producer-image:latest .
+docker build -t consumer-image:latest .
+
+docker run -d --name analysis-continer -p 9201:9200 analysis-image:latest
+

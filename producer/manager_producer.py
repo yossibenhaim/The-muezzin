@@ -1,6 +1,6 @@
 from producer.reading_files.reading_files import Reading_files
 from producer.utils_producer import Utils
-from producer.kafka_producer.kaska_producer import Producer
+from producer.kafka_producer.kafka_producer import Producer
 import os
 from dotenv import load_dotenv
 from producer.logger import Logger

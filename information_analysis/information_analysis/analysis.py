@@ -1,6 +1,3 @@
-from nltk.sentiment import SentimentIntensityAnalyzer
-from torch.nn.utils.prune import ln_structured
-
 
 class Information_analysis:
 
@@ -22,7 +19,7 @@ class Information_analysis:
         :return: bool,
                 returns true or false whether the message is criminalized.
         """
-        if score > 0.000:
+        if score > 0.01:
             return True
         else:
             return False
@@ -42,7 +39,8 @@ class Information_analysis:
             if dangerous_word in text:
                 dangerous_words.append(dangerous_word)
         if dangerous_words:
-            return (len(dangerous_words) * 2) / len(text)
+            print( ((len(dangerous_words) * 2) / len(text)) * 100)
+            return ((len(dangerous_words) * 2) / len(text)) * 100
         else:
             return 0
 
@@ -60,7 +58,8 @@ class Information_analysis:
             if dangerous_word in text:
                 less_dangerous_words.append(dangerous_word)
         if len(less_dangerous_words) > 0:
-            return len(less_dangerous_words) / len(text)
+            print(((len(less_dangerous_words) * 2) / len(text)) * 100)
+            return ((len(less_dangerous_words) * 2) / len(text)) * 100
         else:
             return -1
 
@@ -72,9 +71,9 @@ class Information_analysis:
         :return: str,
         its level: none, medium, high.
         """
-        if score > 0.005:
+        if score > 0.5:
             return "high"
-        elif score > 0.001:
+        elif score > 0.1:
             return "medium"
         else:
             return "none"
