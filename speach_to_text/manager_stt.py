@@ -6,7 +6,7 @@ from speach_to_text.kafka_stt.producer_to_analysis import Producer
 from speach_to_text.utils.utils_stt import Utils
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+load_dotenv('.env')
 
 
 class Manager:

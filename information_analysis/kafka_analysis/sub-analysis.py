@@ -7,7 +7,7 @@ from consumer.logger import Logger
 
 logger = Logger.get_logger()
 
-load_dotenv('../../.env')
+load_dotenv('../.env')
 
 topic = os.getenv('TOPIC-FOR-ANALYSIS-SERVICE')
 host = os.getenv('HOST-FOR-ANALYSIS-SERVICE')

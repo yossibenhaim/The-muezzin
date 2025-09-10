@@ -1,4 +1,5 @@
-
+#pull and run container for mongodb
+docker run -d -p 27017:27017 --name mongodb mongo
 
 #create network docker
 docker network create elastic
@@ -29,10 +30,14 @@ docker exec -it es /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-
 docker exec -it es /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
 
 #create docker image
-
-docker build -t analysis-image:latest .
-docker build -t producer-image:latest .
 docker build -t consumer-image:latest .
+docker build -t stt-image:latest .
+docker build -t analysis-image:latest .
 
-docker run -d --name analysis-continer -p 9201:9200 analysis-image:latest
+#run docker image
+docker run -d --name consumer-container consumer-image:latest
+docker run -d --name stt-container stt-image:latest
+docker run -d --name analysis-container analysis-image:latest
+
+
 

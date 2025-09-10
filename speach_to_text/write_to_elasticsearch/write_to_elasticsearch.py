@@ -4,7 +4,7 @@ import os
 from speach_to_text.logger import Logger
 
 logger = Logger.get_logger()
-load_dotenv('../../.env')
+load_dotenv('../.env')
 
 
 class Write_to_elasticsearch:

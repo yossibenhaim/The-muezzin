@@ -7,7 +7,7 @@ from producer.logger import Logger
 
 logger = Logger.get_logger()
 
-load_dotenv('.env')
+load_dotenv('../.env')
 
 
 class Producer:

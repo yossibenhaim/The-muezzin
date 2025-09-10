@@ -1,0 +1,11 @@
+FROM python:3.12-slim AS builder
+
+WORKDIR /consumer
+
+COPY . /consumer
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+
+CMD ["sh", "-c", "python -m consumer.kafka_consumer.sub-consumer"]

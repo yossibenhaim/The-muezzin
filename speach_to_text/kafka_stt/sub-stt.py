@@ -8,7 +8,7 @@ from speach_to_text.logger import Logger
 Logger()
 logger = Logger.get_logger()
 
-load_dotenv('../../.env')
+load_dotenv('../.env')
 
 topic = os.getenv('TOPIC-FOR-STT-SERVICE')
 host = os.getenv('HOST-FOR-STT-SERVICE')

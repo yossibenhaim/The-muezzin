@@ -3,7 +3,7 @@ from dotenv import dotenv_values
 import os
 from consumer.logger import Logger
 
-dotenv_values('../../.env')
+dotenv_values('../.env')
 
 
 logger = Logger.get_logger()
